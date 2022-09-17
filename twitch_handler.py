@@ -26,6 +26,7 @@ class _TwitchHandler():
         if self.quality not in stream_hls:
             raise ValueError("The stream has not the given quality")
         self._stream_url = stream_hls[self.quality].url
+        #print(self._stream_url)
 
 
 @dataclass
@@ -88,6 +89,7 @@ class _TwitchHandlerGrabber(_TwitchHandler):
     def grab(self) -> Union[None, np.array]:
         """Return the image or audio segment"""
         if self._fifo.empty() and not self.blocking:
+            print("None")
             return None
         else:
             in_bytes = self._fifo.get()

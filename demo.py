@@ -70,22 +70,23 @@ def api_speech(data, ua):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--twitch-url', type=str, help='url of the stream')
-    parser.add_argument('--segment-length', type=int, default=5, help='segment length in second to be transcript')
-    opt = parser.parse_args()
-    audio_grabber = TwitchAudioGrabber(twitch_url=opt.twitch_url,
+
+    audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/nick_shox',
                                        dtype=np.int16,
-                                       segment_length=opt.segment_length,
+                                       segment_length=100,
                                        channels=1,
                                        rate=16000)
+
+    print("here")
 
     ua = UserAgent()
     i = 0
     while True:
         # we want the raw data not the numpy array to send it to google api
         audio_segment = audio_grabber.grab_raw()
+        #print("hello")
         if audio_segment:
+            print("if statement")
             raw = BytesIO(audio_segment)
             try:
                 raw_wav = AudioSegment.from_raw(
