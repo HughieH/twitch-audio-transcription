@@ -26,7 +26,7 @@ class _TwitchHandler():
         if self.quality not in stream_hls:
             raise ValueError("The stream has not the given quality")
         self._stream_url = stream_hls[self.quality].url
-        #print(self._stream_url)
+        print(self._stream_url)
 
 
 @dataclass

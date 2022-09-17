@@ -73,12 +73,12 @@ if __name__ == "__main__":
 
     audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/nick_shox',
                                        dtype=np.int16,
-                                       segment_length=100,
                                        channels=1,
                                        rate=16000)
 
-    print("here")
+    #print("here")
 
+    # fakes a browser instance 
     ua = UserAgent()
     i = 0
     while True:
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         audio_segment = audio_grabber.grab_raw()
         #print("hello")
         if audio_segment:
-            print("if statement")
+            #print("if statement")
             raw = BytesIO(audio_segment)
             try:
                 raw_wav = AudioSegment.from_raw(
