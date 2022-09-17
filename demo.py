@@ -81,26 +81,30 @@ if __name__ == "__main__":
     ua = UserAgent()
     i = 0
     while True:
-        # we want the raw data not the numpy array to send it to google api
-        audio_segment = audio_grabber.grab_raw()
-        # grabbed from queue
-        if audio_segment:
+        try:
+            # we want the raw data not the numpy array to send it to google api
+            audio_segment = audio_grabber.grab_raw()
+            # grabbed from queue
+            if audio_segment:
 
-            raw = BytesIO(audio_segment)
-            try:
-                raw_wav = AudioSegment.from_raw(
-                    raw, sample_width=2, frame_rate=16000, channels=1)
-                # print(type(raw_wav)) --> <class 'pydub.audio_segment.AudioSegment'>
-            except CouldntEncodeError:
-                print("could not decode")
-                continue
-            raw_flac = BytesIO()
-            raw_wav.export(raw_flac, format='flac')
-            raw_wav.export(f"example{i}.flac", format='flac')
-            i += 1
-            #print(type(raw_flac))
-            data = raw_flac.read()
-            #print(type(data))
-            transcript = api_speech(data, ua)
-            print(transcript)
+                raw = BytesIO(audio_segment)
+                try:
+                    raw_wav = AudioSegment.from_raw(
+                        raw, sample_width=2, frame_rate=16000, channels=1)
+                    # print(type(raw_wav)) --> <class 'pydub.audio_segment.AudioSegment'>
+                except CouldntEncodeError:
+                    print("could not decode")
+                    continue
+                raw_flac = BytesIO()
+                raw_wav.export(raw_flac, format='flac')
+                #print(type(raw_flac))
+                data = raw_flac.read()
+                #print(type(data))
+                transcript = api_speech(data, ua)
+                raw_wav.export(f"Audio{i}_{transcript}.flac", format='flac')
+                print(f"Vid no. {i}: {transcript}")
+                i += 1
+        except KeyboardInterrupt:
+            print("Ended")
+            pass
         

@@ -33,7 +33,7 @@ class _TwitchHandler():
 class _TwitchHandlerAudio():
     """Default values for audio"""
     rate: int = 16000  # sampling rate in Hz
-    segment_length: float = 2  # length of the audio segment
+    segment_length: float = 10  # length of the audio segment
     quality: str = "audio_only"
 
 @dataclass
