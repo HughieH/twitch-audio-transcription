@@ -48,7 +48,7 @@ def api_speech(data, ua):
     proxies = None
 
     if len(data) == 0:
-        return
+        return 
 
     # api call
     try:
@@ -71,7 +71,7 @@ def api_speech(data, ua):
 
 if __name__ == "__main__":
 
-    audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/nick_shox',
+    audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/smyleerage',
                                        dtype=np.int16,
                                        channels=1,
                                        rate=16000)
@@ -84,18 +84,21 @@ if __name__ == "__main__":
     while True:
         # we want the raw data not the numpy array to send it to google api
         audio_segment = audio_grabber.grab_raw()
-        #print("hello")
+        # grabbed from queue
         if audio_segment:
-            #print("if statement")
+
             raw = BytesIO(audio_segment)
             try:
                 raw_wav = AudioSegment.from_raw(
                     raw, sample_width=2, frame_rate=16000, channels=1)
+                # print(type(raw_wav)) --> <class 'pydub.audio_segment.AudioSegment'>
             except CouldntEncodeError:
                 print("could not decode")
                 continue
             raw_flac = BytesIO()
             raw_wav.export(raw_flac, format='flac')
+            raw_wav.export(r"C:\Users\wanho\Desktop\audioSegment", format='flac')
             data = raw_flac.read()
+            print(type(data))
             transcript = api_speech(data, ua)
             print(transcript)
