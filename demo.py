@@ -1,7 +1,6 @@
 from twitch_grabber import TwitchAudioGrabber
 
 import numpy as np
-import argparse
 from io import BytesIO
 from pydub import AudioSegment
 from pydub.exceptions import CouldntEncodeError
@@ -71,7 +70,7 @@ def api_speech(data, ua):
 
 if __name__ == "__main__":
 
-    audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/smyleerage',
+    audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/dakillzor',
                                        dtype=np.int16,
                                        channels=1,
                                        rate=16000)
@@ -97,8 +96,11 @@ if __name__ == "__main__":
                 continue
             raw_flac = BytesIO()
             raw_wav.export(raw_flac, format='flac')
-            raw_wav.export(r"C:\Users\wanho\Desktop\audioSegment", format='flac')
+            raw_wav.export(f"example{i}.flac", format='flac')
+            i += 1
+            #print(type(raw_flac))
             data = raw_flac.read()
-            print(type(data))
+            #print(type(data))
             transcript = api_speech(data, ua)
             print(transcript)
+        

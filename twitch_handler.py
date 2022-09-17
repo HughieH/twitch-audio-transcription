@@ -12,8 +12,8 @@ import streamlink
 class _TwitchHandler():
     twitch_url: Union[str, None] = None
     chunk_size: int = 2 ** 8
-    quality: str = "480p"
     _stream_url: Union[str, None] = None
+    quality: str = None
 
     def get_stream_url(self) -> None:
         """Retrieve the url of the rtmp stream from twitch url using streamlink"""
@@ -35,14 +35,6 @@ class _TwitchHandlerAudio():
     rate: int = 16000  # sampling rate in Hz
     segment_length: float = 2  # length of the audio segment
     quality: str = "audio_only"
-
-
-@dataclass
-class _TwitchHandlerVideo():
-    """Default values for video"""
-    rate: int = 30  # sampling rate in Hz
-    quality: str = "480p"
-
 
 @dataclass
 class _TwitchHandlerGrabber(_TwitchHandler):
@@ -87,7 +79,7 @@ class _TwitchHandlerGrabber(_TwitchHandler):
         self._th_reader.start()
 
     def grab(self) -> Union[None, np.array]:
-        """Return the image or audio segment"""
+        """Return the audio segment"""
         if self._fifo.empty() and not self.blocking:
             print("None")
             return None
