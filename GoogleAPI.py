@@ -75,8 +75,6 @@ if __name__ == "__main__":
                                        channels=1,
                                        rate=16000)
 
-    #print("here")
-
     # fakes a browser instance 
     ua = UserAgent()
     i = 0
