@@ -17,6 +17,7 @@ if __name__ == "__main__":
     try:
         while True:
                 # we want the raw data not the numpy array to send it to google api
+
                 audio_segment = audio_grabber.grab_raw()
                 # grabbed from queue
                 if audio_segment:
@@ -34,6 +35,7 @@ if __name__ == "__main__":
                     raw_wav.export(f"Audio{i}.flac", format='flac')
                     data = raw_flac.read()
 
+                    # wtf is goin on
                     r = sr.Recognizer()
                     with sr.AudioFile(f"Audio{i}.flac") as source:
                         audio = r.record(source)
