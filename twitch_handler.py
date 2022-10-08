@@ -7,6 +7,13 @@ from typing import Union
 import numpy as np
 import streamlink
 
+"""
+Summary:
+Gets RTMP (Real time messaging protocol) stream url directly from streamlink's API. Now we set the handler function to take specific segements of the stream
+a certain length and audio quality. Now we use a queue DS, each segment of audio is stored as a numpy array in bytes. The segements of audio are read
+from an ffmpeg thread that decodes the audio into bytes of data.
+"""
+
 
 @dataclass
 class _TwitchHandler():

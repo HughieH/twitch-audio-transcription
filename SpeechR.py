@@ -7,6 +7,11 @@ from pydub import AudioSegment
 from pydub.exceptions import CouldntEncodeError
 
 
+"""
+Pop an audio segment raw file. If there is an audio segment, convert it into a flac file using AudioSegment library. Use speech recognition library from
+Py to read audio and translate it into text. Uses google speech recognition.
+"""
+
 if __name__ == "__main__":
 
     audio_grabber = TwitchAudioGrabber(twitch_url='https://www.twitch.tv/nick_shox',
