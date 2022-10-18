@@ -35,6 +35,7 @@ if __name__ == "__main__":
                     except CouldntEncodeError:
                         print("could not decode")
                         continue
+                    
                     raw_flac = BytesIO()
                     raw_wav.export(raw_flac, format='flac')
                     raw_wav.export(f"Audio{i}.flac", format='flac')
